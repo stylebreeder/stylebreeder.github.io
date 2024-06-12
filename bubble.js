@@ -197,22 +197,13 @@
         simulation.nodes(datapoints)
             .on('tick', ticked)
         
-        function copyToClipboard(text) {
-            var textarea = document.createElement("textarea");
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textarea);
-            alert("Link copied to clipboard: " + text);
-        }
+
 
         var setEvents = circles
             .on('click', function (d) {
                 // d3.select("h1").html("Region: <span class='badge alert-info'>" + d.region[0].toUpperCase() + d.region.slice(1) + "</span>");
                 // <a href="#" onclick="copyToClipboard('https://www.google.com')">Copy Google Link</a>
-                var str_lc = "<b>LoRA url:</b> <a href='#' onclick='copyToClipboard('" + d.url + "')'>Copy Link</a>";
-                // var str_lc = "<b>LoRA url:</b> <a target='_blank' href='" + d.url + "'>Download</a>";
+                var str_lc = "<b>LoRA url for " + d.model_name + ":</b> <a target='_blank' href='" + d.url + "'>Download</a>";
                 d3.select("#lc_info").html(str_lc);
                 d3.select("#usage_info").html("");
                 // d3.select("#region_label").html("<b>Current Region:</b> <span class='badge alert-info'>" + d.region[0].toUpperCase() + d.region.slice(1) + "</span> " + "<b>Change the region:</b>");
