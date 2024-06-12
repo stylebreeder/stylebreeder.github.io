@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="description"
-        content="NoiseCLR discovers latent directions in text-to-image diffusion models in an unsupervised way.">
-        <meta name="keywords" content="Diffusion Models, Latent Space Exploration">
+        content="Stylebreeder introduces a novel AI-generated image dataset.">
+        <meta name="keywords" content="Diffusion Models, Datasets">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://www.w3counter.com/tracker.js?id=151390"></script>
-        <title>NoiseCLR</title>
+        <title>Stylebreeder</title>
         <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -43,25 +43,47 @@
           <div class="container is-max-desktop">
             <div class="columns is-centered">
               <div class="column has-text-centered">
-                <h1 class="title is-1 publication-title">NoiseCLR: A Contrastive Learning Approach for Unsupervised Discovery of Interpretable Directions in Diffusion Models</h1>
-                <h3 class="title is-3">CVPR 2024 (Oral)</h3>
+                <h1 class="title is-1 publication-title">Stylebreeder &#127912;: Exploring and Democratizing Artistic Styles through Text-to-Image Models</h1>
                 <div class="is-size-5 publication-authors">
                   <span class="author-block">
-                    <a href="https://yusufdalva.github.io/">Yusuf Dalva</a>,</span>
+                    <a href="https://sanghani.cs.vt.edu/person/matthew-zheng/">Matthew Zheng</a><sup>1,*</sup>,</span>
                   <span class="author-block">
-                    <a href="https://pinguar.org/">Pinar Yanardag</a>
+                    <a href="https://enis.dev/">Enis Simsar</a><sup>2,*</sup>,</span>
+                  <span class="author-block">
+                    <a href="https://sites.google.com/view/hidir-yesiltepe">Hidir Yesiltepe</a><sup>1</sup>,</span>
+                  <span class="author-block">
+                    <a href="https://federicotombari.github.io/">Federico Tombari</a><sup>3,4</sup>,</span>
+                  <span class="author-block">
+                    <a href="">Joel Simon</a><sup>5</sup>,</span>
+                  <span class="author-block">
+                    <a href="https://pinguar.org/">Pinar Yanardag</a><sup>1</sup>
                   </span>
                 </div>
       
                 <div class="is-size-5 publication-authors">
-                  <span class="author-block">Virginia Tech</span>
+                  <span class="author-block"><sup>1</sup>Virginia Tech</span>
+                </div>
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block"><sup>2</sup>ETH Zurich</span>
+                </div>
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block"><sup>3</sup>TUM</span>
+                </div>
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block"><sup>4</sup>Google</span>
+                </div>
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block"><sup>5</sup>Artbreeder</span>
+                </div>
+                <div class="is-size-8 publication-authors">
+                  <span class="author-block"><sup>*</sup>Joint co-author</span>
                 </div>
       
                 <div class="column has-text-centered">
                   <div class="publication-links">
                     <!-- PDF Link. -->
                     <span class="link-block">
-                      <a href="https://arxiv.org/abs/2312.05390"
+                      <a href=""
                          class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
                             <i class="fas fa-file-pdf"></i>
@@ -101,14 +123,18 @@
         <div class="container is-max-desktop">
           <div class="hero-body">
             <h4 class="subtitle">
-                <b>TL;DR</b> We propose an unsupervised approach to identify interpretable directions in text-to-image diffusion models, such as Stable Diffusion. 
-                Our method finds semantically meaningful directions across various domains like <i>faces, cats</i>, and <i>art</i>.
+                <b>TL;DR</b> We introduce a new extensive dataset from Artbreeder on CC0 license, capturing millions of
+                 user-generated images and styles. We cluster images based on their stylistic similarities, helping to map 
+                 out the landscape of user-generated art.
+                 Utilizing historical data of the users, we showcase a recommendation system that aligns style suggestions with 
+                 individual preferences. We release a web-based platform, Style Atlas, providing public access to download 
+                 pre-trained style LoRAs.
                 <!--
                 <span class="dnerf">NoiseCLR</span> discovers semantic directions in latent diffusion models in a completely unsupervised manner. 
                 With this work, we present latent directions discovered in domains such as Art, Fashion, Face, Cats and Cars in Stable Diffusion. -->
-            </h4>
+            <!-- </h4>
             <div class="container">
-                <img src="./static/images/Teaser.png" />
+                <img src="./static/images/style_models.jpg" />
                 <br/>
                 <p>
                 NoiseCLR can apply multiple directions 
@@ -117,7 +143,7 @@
                 Additionally, our method does not require fine-tuning or retraining of the diffusion model, nor does it need any labeled data to learn directions.  
                 <i>Note that our method does not require any text prompts, the direction  names above are provided by us for easy understanding.</i>
                 </p>
-            </div>
+            </div> -->
         </div>
       </section>
 
@@ -129,14 +155,15 @@
               <h2 class="title is-3">Abstract</h2>
               <div class="content has-text-justified">
                 <p>
-                    Generative models have been very popular in the recent years for their image generation capabilities.  GAN-based models are highly regarded for their disentangled latent space, which is a key feature contributing to their success in controlled image editing.  
-                    On the other hand, diffusion models have emerged as powerful tools for generating high-quality images. However, the latent space of diffusion models is not as thoroughly explored or understood. 
-                    Existing methods that aim to explore the latent space of diffusion models usually relies on text prompts to pinpoint specific semantics. However, this approach may be restrictive in areas such as art, 
-                    fashion, or specialized fields like medicine, where suitable text prompts might not be available or easy to conceive thus limiting the scope of existing work. In this paper, we propose an unsupervised method 
-                    to discover latent semantics in text-to-image diffusion models without relying on text prompts. Our method takes a small set of unlabeled images from specific domains, such as faces or cats, and a pre-trained diffusion model, 
-                    and discovers diverse semantics in unsupervised fashion using a contrastive learning objective. Moreover, the learned directions can be applied simultaneously, either within the same domain (such as various types of facial edits) 
-                    or across different domains (such as applying cat and face edits within the same image) without interfering with each other. Our extensive experiments show that our method achieves highly disentangled edits, outperforming existing 
-                    approaches in both diffusion-based and GAN-based latent space editing methods.
+                    Text-to-image models are becoming increasingly popular, revolutionizing the landscape of digital art creation by enabling highly detailed and creative visual content generation. 
+                    These models have been widely employed across various domains, particularly in art generation, where they facilitate a broad spectrum of creative expression and democratize access 
+                    to artistic creation.  In this paper, we introduce Stylebreeder, a comprehensive dataset of 6.8M images and 1.8M prompts generated by 95K users on Artbreeder,  a platform
+                    that has emerged as a significant hub for creative exploration with over 13M users.  We introduce a series of tasks with this dataset aimed at identifying diverse artistic styles,
+                    generating personalized content, and recommending styles based on user interests. By documenting unique, user-generated styles that transcend conventional categories like cyberpunk'
+                    or 'Picasso,' we explore the potential for unique, crowd-sourced styles that could provide deep insights into the collective creative psyche of users worldwide. We also evaluate 
+                    different personalization methods to enhance artistic expression and introduce a style atlas, making these models available in LoRA format for public use. Our research demonstrates 
+                    the potential of text-to-image diffusion models to uncover and promote unique artistic expressions, further democratizing AI in art and fostering a more diverse and inclusive artistic
+                    community.  The dataset, code and models are available at under a Public Domain (CC0) license.
                 </p>
               </div>
             </div>
@@ -149,7 +176,7 @@
           <div class="container is-max-desktop">
             <div class="columns is-centered has-text-centered">
               <div class="column is-12">
-                <h2 class="title is-3">Method</h2>
+                <h2 class="title is-3">Stylebreeder Dataset</h2>
       
                 <div class="content has-text-justified">
                   <!--
@@ -157,19 +184,17 @@
                    Explain method
                   </p>
                 -->
-                  <div class="container">
+                  <!-- <div class="container">
                     <img src="./static/images/method.png" />
                     <br />
-                  </div>
+                  </div> -->
       
                   <p>
-                    NoiseCLR employs a contrastive objective to learn latent directions in an unsupervised manner. 
-                    Our method utilizes the insight that similar edits in the noise space should attract to each other, 
-                    whereas edits made by different directions should be repelled from each other. Given <b>N</b> unlabeled images 
-                    from an particular domain such as facial images, we first apply the forward diffusion process for <b>t</b> timesteps. 
-                    Then, by using the noised variables {x<sub>1</sub>, ..., x<sub>N</sub>}, we  apply the denoising step, conditioning this step with 
-                    the learned latent directions. Our method discovers <b>K</b> latent directions  d<sub>1</sub>,...,d<sub>K</sub> for a pretrained denoising 
-                    network such as Stable Diffusion, where directions correspond to semantically meaningful edits such as  <i><b>adding a lipstick</b></i>. 
+                    We collected Stylebreeder by scraping images from the  Artbreeder website. We chose Artbreeder since it is
+                    one of the most popular platforms for art generation, supporting a variety of text-to-image models. Additionally, all
+                    images on Artbreeder are covered by a CC0 license, which allows for unrestricted use for any purpose. We collected meta 
+                    data along with the images, which includes text prompt (positive and negative), username, hyperparameters. We provide 
+                    additional features such as NSFW scores for each images and text prompts.
                   </p>
                 </div>
               </div>
@@ -177,13 +202,13 @@
           </div>
         </section>
            <!--/ Method -->
-      
-          <!-- Paper video. -->
-          <section class="section">
+ 
+           <!-- Clustering -->
+           <section class="section">
             <div class="container is-max-desktop">
-                <h1 class="title is-3 has-text-centered">Discovered Directions</h1>
               <div class="columns is-centered has-text-centered">
                 <div class="column is-12">
+                  <h2 class="title is-3">Discovering Diverse Artistic Styles</h2>
         
                   <div class="content has-text-justified">
                     <!--
@@ -191,20 +216,71 @@
                      Explain method
                     </p>
                   -->
-                  <h4 class="title is-4 has-text-centered">Results on Face Domain</h4>
-                    <div class="container">
-                      <img src="./static/images/Main_Figure.png" />
-                      <br />
-                    </div>
-        
-                    <p>
-                        Edits are performed using the directions learned by our method in an unsupervised manner. We annotate the discovered 
-                        directions above for the sake of understandability. The edits learned by our method are both effective in domain examples 
-                        (e.g. human faces) and out-of-domain images (e.g. paintings).
-                    </p>
 
-                    <h4 class="title is-4 has-text-centered">Results on Different Domains</h4>
+                    <div class="container">
+                      <img src="./static/images/cluster_samples.png" />
+                      <br />
+                    </div>
         
+                    <p>
+                      We convert the images into a set of style embeddings using a state-of-the-art feature extractor, CSD.
+                      These embeddings are then clustered into groups using the K-Means++ algorithm, which utilizes cosine 
+                      similarity to ensure cohesion within clusters.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Clustering -->
+
+            <!-- Personalized Generation -->
+            <section class="section">
+            <div class="container is-max-desktop">
+              <div class="columns is-centered has-text-centered">
+                <div class="column is-12">
+                  <h2 class="title is-3">Personalized Image Generation Based on Style</h2>
+        
+                  <div class="content has-text-justified">
+                    <!--
+                    <p>
+                      Explain method
+                    </p>
+                  -->
+                    <div class="container">
+                      <img src="./static/images/method.png" />
+                      <br />
+                    </div>
+
+                    <div class="container">
+                      <img src="./static/images/style_gen.jpg" />
+                      <br />
+                    </div>
+
+                    <p>
+                      We use these clusters of images of discovered styles to fine-tune LoRA models that are capable of generating new images
+                      with similar styles.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Personalized Generation -->
+          
+          <!-- Recommendation -->
+          <section class="section">
+            <div class="container is-max-desktop">
+              <div class="columns is-centered has-text-centered">
+                <div class="column is-12">
+                  <h2 class="title is-3">Style-based Recommendation</h2>
+                    <!-- <br>
+                    <div class="has-text-justified">
+                      <p>
+                        Using the clusters of images as styles, we can model for each user the styles that they prefer. Using a matrix-factorization based approach, we develop a recommender system to propose new styles that users have not generated images in before.
+                      </p>
+                      <br>
+                    </div> -->
                   <div class="content has-text-justified">
                     <!--
                     <p>
@@ -212,13 +288,44 @@
                     </p>
                   -->
                     <div class="container">
-                      <img src="./static/images/CrossDomainResults.png" />
+                      <img src="./static/images/style_recommend.jpg" />
                       <br />
                     </div>
-                    <br>
+                    <p class="has-text-justified">
+                      Using the clusters of images as styles, we can model for each user the styles that they prefer. Using a matrix-factorization based approach, we develop a recommender system to propose new styles that users have not generated images in before.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Recommendation -->
+
+          <section class="section">
+            <div class="container is-max-desktop">
+              <div class="columns is-centered has-text-centered">
+                <div class="column is-12">
+                  <h2 class="title is-3">Style Atlas</h2>
+                    <!-- <br>
+                    <div class="has-text-justified">
+                      <p>
+                        Using the clusters of images as styles, we can model for each user the styles that they prefer. Using a matrix-factorization based approach, we develop a recommender system to propose new styles that users have not generated images in before.
+                      </p>
+                      <br>
+                    </div> -->
+                  <div class="content has-text-justified">
+                    <!--
                     <p>
-                        To demonstrate the generalizability of our method across different  domains, we provide editing results on artistic paintings, cats and cars. 
-                        As demonstrated from in the editing results, our method is able to learn and apply latent directions from various domains using a single diffusion model.
+                     Explain method
+                    </p>
+                  -->
+                    <div class="container">
+                      <img src="./static/images/style_atlas.png" />
+                      <br />
+                    </div>
+                    <p class="has-text-justified">
+                      Since LoRA has become a popular tool for lightweight concept tuning within the community, 
+                      we are including 100 style LoRAs in our style atlas.
                     </p>
                   </div>
                 </div>
@@ -230,27 +337,28 @@
             <div class="container is-max-desktop">
               <div class="columns is-centered has-text-centered">
                 <div class="column is-12">
-                  <h2 class="title is-3">Composition Results</h2>
-                    <br>
+                  <h2 class="title is-3">Additional Info</h2>
+                    <!-- <br>
                     <div class="has-text-justified">
                       <p>
-                        Since NoiseCLR can learn latent directions from different domains within the shared latent space of Stable Diffusion, it is capable of executing both intra-domain and inter-domain edits.
+                        Using the clusters of images as styles, we can model for each user the styles that they prefer. Using a matrix-factorization based approach, we develop a recommender system to propose new styles that users have not generated images in before.
                       </p>
                       <br>
-                    </div>
+                    </div> -->
                   <div class="content has-text-justified">
                     <!--
                     <p>
                      Explain method
                     </p>
                   -->
-                    <div class="container">
-                      <img src="./static/images/multi_edit.png" />
+                    <!-- <div class="container">
+                      <img src="./static/images/style_atlas.png" />
                       <br />
-                    </div>
+                    </div> -->
                     <p class="has-text-justified">
-                      Our method can find domain-specific edits that can be composed either a) intra-domain where edits from the same domain can be applied simultaneously, b) cross-domain, where edits from different domains can be combined and applied simultaneously. 
-                      </p>
+                      We provide a <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM709MtC41P-0Z-dLip-Z-hX3c72O4RQ8sL5_Rfd_fpyQLfw/viewform">Google form</a> 
+                      for reporting harmful or inappropriate images and prompts, as well as allowing artists to opt-out in case their names are used in the text prompts.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -261,14 +369,9 @@
             <div class="container is-max-desktop content">
               <h2 class="title">BibTeX</h2>
               <pre><code>
-  @misc{dalva2023noiseclr,
-    title={NoiseCLR: A Contrastive Learning Approach for Unsupervised Discovery of Interpretable Directions in Diffusion Models}, 
-    author={Yusuf Dalva and Pinar Yanardag},
-    year={2023},
-    eprint={2312.05390},
-    archivePrefix={arXiv},
-    primaryClass={cs.CV}
-  }
+  <!-- 
+                [INSERT BIBTEX]
+  } -->
               </code></pre>
             </div>
           </section>
