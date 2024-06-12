@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description"
+        content="NoiseCLR discovers latent directions in text-to-image diffusion models in an unsupervised way.">
+        <meta name="keywords" content="Diffusion Models, Latent Space Exploration">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://www.w3counter.com/tracker.js?id=151390"></script>
+        <title>NoiseCLR</title>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+        dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-PYVRSFMDRL');
+        </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+    </head>
+
+    <body>
+
+      <section class="hero">
+        <div class="hero-body">
+          <div class="container is-max-desktop">
+            <div class="columns is-centered">
+              <div class="column has-text-centered">
+                <h1 class="title is-1 publication-title">NoiseCLR: A Contrastive Learning Approach for Unsupervised Discovery of Interpretable Directions in Diffusion Models</h1>
+                <h3 class="title is-3">CVPR 2024 (Oral)</h3>
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block">
+                    <a href="https://yusufdalva.github.io/">Yusuf Dalva</a>,</span>
+                  <span class="author-block">
+                    <a href="https://pinguar.org/">Pinar Yanardag</a>
+                  </span>
+                </div>
+      
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block">Virginia Tech</span>
+                </div>
+      
+                <div class="column has-text-centered">
+                  <div class="publication-links">
+                    <!-- PDF Link. -->
+                    <span class="link-block">
+                      <a href="https://arxiv.org/abs/2312.05390"
+                         class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+                    <!-- Code Link. -->
+                    <span class="link-block">
+                      <a
+                         class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                            <i class="fab fa-github"></i>
+                        </span>
+                        <span>Code (Coming soon)</span>
+                        </a>
+                    </span>
+                    <!-- Dataset Link. -->
+                    <!-- <span class="link-block">
+                      <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                         class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                            <i class="far fa-images"></i>
+                        </span>
+                        <span>Data</span>
+                        </a> -->
+                  </div>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="hero teaser">
+        <div class="container is-max-desktop">
+          <div class="hero-body">
+            <h4 class="subtitle">
+                <b>TL;DR</b> We propose an unsupervised approach to identify interpretable directions in text-to-image diffusion models, such as Stable Diffusion. 
+                Our method finds semantically meaningful directions across various domains like <i>faces, cats</i>, and <i>art</i>.
+                <!--
+                <span class="dnerf">NoiseCLR</span> discovers semantic directions in latent diffusion models in a completely unsupervised manner. 
+                With this work, we present latent directions discovered in domains such as Art, Fashion, Face, Cats and Cars in Stable Diffusion. -->
+            </h4>
+            <div class="container">
+                <img src="./static/images/Teaser.png" />
+                <br/>
+                <p>
+                NoiseCLR can apply multiple directions 
+                either within a single domain (a)  or across different domains   in  the same image (b, c) in a disentangled manner. Since the directions learned by our model 
+                are highly disentangled, there is no need for semantic masks or user-provided guidance to prevent edits in different domains from influencing each other. 
+                Additionally, our method does not require fine-tuning or retraining of the diffusion model, nor does it need any labeled data to learn directions.  
+                <i>Note that our method does not require any text prompts, the direction  names above are provided by us for easy understanding.</i>
+                </p>
+            </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <!-- Abstract. -->
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <h2 class="title is-3">Abstract</h2>
+              <div class="content has-text-justified">
+                <p>
+                    Generative models have been very popular in the recent years for their image generation capabilities.  GAN-based models are highly regarded for their disentangled latent space, which is a key feature contributing to their success in controlled image editing.  
+                    On the other hand, diffusion models have emerged as powerful tools for generating high-quality images. However, the latent space of diffusion models is not as thoroughly explored or understood. 
+                    Existing methods that aim to explore the latent space of diffusion models usually relies on text prompts to pinpoint specific semantics. However, this approach may be restrictive in areas such as art, 
+                    fashion, or specialized fields like medicine, where suitable text prompts might not be available or easy to conceive thus limiting the scope of existing work. In this paper, we propose an unsupervised method 
+                    to discover latent semantics in text-to-image diffusion models without relying on text prompts. Our method takes a small set of unlabeled images from specific domains, such as faces or cats, and a pre-trained diffusion model, 
+                    and discovers diverse semantics in unsupervised fashion using a contrastive learning objective. Moreover, the learned directions can be applied simultaneously, either within the same domain (such as various types of facial edits) 
+                    or across different domains (such as applying cat and face edits within the same image) without interfering with each other. Our extensive experiments show that our method achieves highly disentangled edits, outperforming existing 
+                    approaches in both diffusion-based and GAN-based latent space editing methods.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!--/ Abstract. -->
+      
+        
+        <!-- Method -->
+        <section class="section">
+          <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-12">
+                <h2 class="title is-3">Method</h2>
+      
+                <div class="content has-text-justified">
+                  <!--
+                  <p>
+                   Explain method
+                  </p>
+                -->
+                  <div class="container">
+                    <img src="./static/images/method.png" />
+                    <br />
+                  </div>
+      
+                  <p>
+                    NoiseCLR employs a contrastive objective to learn latent directions in an unsupervised manner. 
+                    Our method utilizes the insight that similar edits in the noise space should attract to each other, 
+                    whereas edits made by different directions should be repelled from each other. Given <b>N</b> unlabeled images 
+                    from an particular domain such as facial images, we first apply the forward diffusion process for <b>t</b> timesteps. 
+                    Then, by using the noised variables {x<sub>1</sub>, ..., x<sub>N</sub>}, we  apply the denoising step, conditioning this step with 
+                    the learned latent directions. Our method discovers <b>K</b> latent directions  d<sub>1</sub>,...,d<sub>K</sub> for a pretrained denoising 
+                    network such as Stable Diffusion, where directions correspond to semantically meaningful edits such as  <i><b>adding a lipstick</b></i>. 
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+           <!--/ Method -->
+      
+          <!-- Paper video. -->
+          <section class="section">
+            <div class="container is-max-desktop">
+                <h1 class="title is-3 has-text-centered">Discovered Directions</h1>
+              <div class="columns is-centered has-text-centered">
+                <div class="column is-12">
+        
+                  <div class="content has-text-justified">
+                    <!--
+                    <p>
+                     Explain method
+                    </p>
+                  -->
+                  <h4 class="title is-4 has-text-centered">Results on Face Domain</h4>
+                    <div class="container">
+                      <img src="./static/images/Main_Figure.png" />
+                      <br />
+                    </div>
+        
+                    <p>
+                        Edits are performed using the directions learned by our method in an unsupervised manner. We annotate the discovered 
+                        directions above for the sake of understandability. The edits learned by our method are both effective in domain examples 
+                        (e.g. human faces) and out-of-domain images (e.g. paintings).
+                    </p>
+
+                    <h4 class="title is-4 has-text-centered">Results on Different Domains</h4>
+        
+                  <div class="content has-text-justified">
+                    <!--
+                    <p>
+                     Explain method
+                    </p>
+                  -->
+                    <div class="container">
+                      <img src="./static/images/CrossDomainResults.png" />
+                      <br />
+                    </div>
+                    <br>
+                    <p>
+                        To demonstrate the generalizability of our method across different  domains, we provide editing results on artistic paintings, cats and cars. 
+                        As demonstrated from in the editing results, our method is able to learn and apply latent directions from various domains using a single diffusion model.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="container is-max-desktop">
+              <div class="columns is-centered has-text-centered">
+                <div class="column is-12">
+                  <h2 class="title is-3">Composition Results</h2>
+                    <br>
+                    <div class="has-text-justified">
+                      <p>
+                        Since NoiseCLR can learn latent directions from different domains within the shared latent space of Stable Diffusion, it is capable of executing both intra-domain and inter-domain edits.
+                      </p>
+                      <br>
+                    </div>
+                  <div class="content has-text-justified">
+                    <!--
+                    <p>
+                     Explain method
+                    </p>
+                  -->
+                    <div class="container">
+                      <img src="./static/images/multi_edit.png" />
+                      <br />
+                    </div>
+                    <p class="has-text-justified">
+                      Our method can find domain-specific edits that can be composed either a) intra-domain where edits from the same domain can be applied simultaneously, b) cross-domain, where edits from different domains can be combined and applied simultaneously. 
+                      </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="BibTeX">
+            <div class="container is-max-desktop content">
+              <h2 class="title">BibTeX</h2>
+              <pre><code>
+  @misc{dalva2023noiseclr,
+    title={NoiseCLR: A Contrastive Learning Approach for Unsupervised Discovery of Interpretable Directions in Diffusion Models}, 
+    author={Yusuf Dalva and Pinar Yanardag},
+    year={2023},
+    eprint={2312.05390},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+  }
+              </code></pre>
+            </div>
+          </section>
+          
+          <footer class="footer">
+            <div class="container">
+              <div class="content has-text-centered is-centered">
+                <a class="icon-link" href="https://github.com/yusufdalva" class="external-link" disabled>
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+              <div class="columns">
+                <div class="column is-8">
+                  <div class="content has-text-justified">
+                    <!-- <p>
+                      This website is licensed under a <a rel="license"
+                                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                      Commons Attribution-ShareAlike 4.0 International License</a>.
+                    </p> -->
+                    <p>This page is adapted from <a
+                        href="https://github.com/nerfies/nerfies.github.io">this</a> implementation.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </footer>
+    </body>
+</html>
