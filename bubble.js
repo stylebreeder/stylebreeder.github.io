@@ -203,7 +203,7 @@
             .on('click', function (d) {
                 // d3.select("h1").html("Region: <span class='badge alert-info'>" + d.region[0].toUpperCase() + d.region.slice(1) + "</span>");
                 // <a href="#" onclick="copyToClipboard('https://www.google.com')">Copy Google Link</a>
-                var str_lc = "<b>LoRA url for " + d.model_name + ":</b> <a target='_blank' href='" + d.url + "'>Download</a>";
+                var str_lc = "<b>LoRA url for " + d.model_name + ":</b> <a target='_blank' href='" + d.url + "'>Download</a> - <a target='_blank' href='https://colab.research.google.com/drive/101IkPC7Q4cZWUTps46Em5261O3McecPZ?usp=sharing'>Open Colab</a> ";
                 d3.select("#lc_info").html(str_lc);
                 d3.select("#usage_info").html("");
                 // d3.select("#region_label").html("<b>Current Region:</b> <span class='badge alert-info'>" + d.region[0].toUpperCase() + d.region.slice(1) + "</span> " + "<b>Change the region:</b>");
